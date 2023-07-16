@@ -1,3 +1,10 @@
+# _*_ coding: utf-8 _*_
+
+INTERNAL_IPS = [
+    # ...
+    "127.0.0.1",
+    # ...
+]
 """
 Django settings for soju project.
 
@@ -9,8 +16,16 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
+
 import os
 from pathlib import Path
+
+from dotenv import load_dotenv
+from django.contrib.messages import constants as messages
+
+env_path = Path('.') / '.env'
+
+load_dotenv(dotenv_path=env_path)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,7 +35,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-gd7c*_tv8l%ymvf+hag$ueeqez65(fb47e2j!($_ez86p19_n&"
+# SECRET_KEY = "django-insecure-gd7c*_tv8l%ymvf+hag$ueeqez65(fb47e2j!($_ez86p19_n&"
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -36,8 +52,28 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
+    "django.contrib.sites",
     "django.contrib.staticfiles",
+    "debug_toolbar",
+    #"channels",
+    "django.contrib.humanize",
+
+    # pascages install
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "allauth.socialaccount.providers.google",
+    "allauth.socialaccount.providers.github",
+
+    "crispy_forms",
+    'ckeditor',
+     # мои приложения
+    "blog.apps.BlogConfig",
+
+    "django_cleanup.apps.CleanupConfig",
 ]
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -47,6 +83,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = "soju.urls"
@@ -54,7 +91,7 @@ ROOT_URLCONF = "soju.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [os.path.join(BASE_DIR, 'templates')],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -66,6 +103,31 @@ TEMPLATES = [
         },
     },
 ]
+
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+           'access_type': 'online',
+        }
+    },
+    'github':{
+        'SCOPE':[
+            'user,'
+            'repo',
+            'read:org',
+        ]
+    }
+}
 
 WSGI_APPLICATION = "soju.wsgi.application"
 
@@ -137,3 +199,25 @@ MEDIA_URL = '/media/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+# CRISPY_TEMPLATE_PACK = 'bootstrap5'
+CRISPY_TEMPLATE_PACK = 'uni_form'
+
+# django-ckeditor
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'width': 'auto',
+    },
+}
+# End django-ckeditor
+"""
+ASGI_APPLICATION = "soju.routing.application"
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND":"channels.layers.InMemoryChannelLayer"
+    }
+}
+"""
