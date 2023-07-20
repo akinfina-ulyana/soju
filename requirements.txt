@@ -25,7 +25,7 @@ django-cleanup==8.0.0
 django-braces==1.15.0
 
 
-
+notebook==6.5.4
 
 
 python-dotenv~=1.0.0
