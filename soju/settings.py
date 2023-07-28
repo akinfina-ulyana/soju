@@ -242,3 +242,16 @@ MESSAGE_TAGS = {
 
 # alias jshell= 'python manage.py shell_plus --notebook'
 os.environ['DJANGO_ALLOW_ASYNC_UNSAFE'] = "true"
+
+LOGIN_REDIRECT_URL = 'dashboard' # перенаправлять пользователя после успешного входа, если в запросе нет параметра next
+LOGIN_URL = 'login' # перенаправлять пользователя, чтобы зарегистрировать его вход
+LOGOUT_URL = 'logout' # зарегистрировать его выход
+
+
+PASSWORD_HASHERS = [
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+    'django.contrib.auth.hashers.Argon2PasswordHasher',
+    'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
+    'django.contrib.auth.hashers.ScryptPasswordHasher',
+]
