@@ -1,12 +1,10 @@
 {% extends 'templates_projects/base.html' %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% block content %}
 
-</body>
-</html>
+<section class="article-clean">
+  <div class="container">
+    {% block content_blog%}{% endblock %}
+  </div>
+</section>
+{% endblock %}
