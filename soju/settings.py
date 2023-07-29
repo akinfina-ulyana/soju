@@ -62,9 +62,9 @@ INSTALLED_APPS = [
 
     # pascages install
     "allauth",
-    "allauth.socialaccount",
-    "allauth.socialaccount.providers.google",
-    "allauth.socialaccount.providers.github",
+    #"allauth.socialaccount",
+    #"allauth.socialaccount.providers.google",
+    #"allauth.socialaccount.providers.github",
 
     "crispy_forms",
     'ckeditor',
@@ -108,7 +108,8 @@ TEMPLATES = [
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',
+    'account.authentication.EmailAuthBackend',
+   # 'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
 SOCIALACCOUNT_PROVIDERS = {
@@ -138,11 +139,14 @@ WSGI_APPLICATION = "soju.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "soju",
+        "USER": "soju",
+        "PASSWORD": "soju",
+        "HOST": "localhost",
+        "PORT": 5432,
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators

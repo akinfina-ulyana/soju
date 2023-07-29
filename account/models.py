@@ -2,6 +2,7 @@ from django.db import models
 
 from django.conf import settings
 
+
 class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL,
                                 on_delete=models.CASCADE)
@@ -10,7 +11,7 @@ class Profile(models.Model):
     avatar = models.ImageField(upload_to='users/%Y/%m/%d/',
                               blank=True)
     bio = models.TextField()
-    phone = models.CharField(max_length=13)
+    phone = models.CharField(max_length=13) # заняться вопросом валидаци, в перспективе
     # last_join = models.DateField(auto_now = True) ***post save signal
 
     def __str__(self):
