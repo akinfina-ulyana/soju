@@ -34,8 +34,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = "django-insecure-gd7c*_tv8l%ymvf+hag$ueeqez65(fb47e2j!($_ez86p19_n&"
-SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = "django-insecure-gd7c*_tv8l%ymvf+hag$ueeqez65(fb47e2j!($_ez86p19_n&"
+#SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -46,6 +46,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    "channels",
     "daphne",
     'account.apps.AccountConfig',
     "django.contrib.admin",
@@ -55,7 +56,6 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.sites",
     "django.contrib.staticfiles",
-    "channels",
     "debug_toolbar",
     'rest_framework',
 
@@ -78,6 +78,12 @@ INSTALLED_APPS = [
 ]
 
 ASGI_APPLICATION = "soju.asgi.application"
+
+CHANNEL_LAYERS = {
+    'default':{
+        'BACKEND':'channels.layers.InMemoryChannelLayer'
+    }
+}
 
 SITE_ID = 1
 
