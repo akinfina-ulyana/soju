@@ -1,4 +1,5 @@
 Django==4.2.3
+
 psycopg2-binary==2.9.5
 crispy-bootstrap5==0.7
 Pillow==10.0.0
@@ -8,7 +9,6 @@ redis==4.5.4
 
 pytest==7.2.2
 pytest-django>=4.5.2
-
 django-rq == 2.7.0
 
 flake8 >= 6.0.0

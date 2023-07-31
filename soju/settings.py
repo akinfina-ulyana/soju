@@ -19,13 +19,12 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 import os
 from pathlib import Path
-
-from dotenv import load_dotenv
+#from dotenv import load_dotenv
 from django.contrib.messages import constants as messages
 
 env_path = Path('.') / '.env'
 
-load_dotenv(dotenv_path=env_path)
+#load_dotenv(dotenv_path=env_path)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -47,6 +46,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    "daphne",
     'account.apps.AccountConfig',
     "django.contrib.admin",
     "django.contrib.auth",
@@ -55,8 +55,10 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.sites",
     "django.contrib.staticfiles",
+    "channels",
     "debug_toolbar",
-    #"channels",
+    'rest_framework',
+
     "django.contrib.humanize",
     "django_extensions",
 
@@ -70,9 +72,12 @@ INSTALLED_APPS = [
     'ckeditor',
      # мои приложения
     "blog.apps.BlogConfig",
+    "dialogues",
 
     "django_cleanup.apps.CleanupConfig",
 ]
+
+ASGI_APPLICATION = "soju.asgi.application"
 
 SITE_ID = 1
 
@@ -259,3 +264,4 @@ PASSWORD_HASHERS = [
     'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
     'django.contrib.auth.hashers.ScryptPasswordHasher',
 ]
+
